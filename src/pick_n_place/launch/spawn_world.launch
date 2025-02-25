@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Start Gazebo with the custom world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find pick_n_place)/worlds/test.world"/>
+    <arg name="paused" value="true"/> <!-- Start paused -->
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Wait for Gazebo to fully start - ensure ROS TIME is syncing -->
+  <group ns="gazebo">
+    <param name="use_sim_time" value="true"/>
+  </group>
+
+</launch>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <!-- Include the ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <!-- Include the sun for lighting -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Include the table -->
+    <include>
+      <uri>model://work_table</uri>
+      <pose>0 0 0 0 0 0</pose> <!-- Position (x, y, z) -->
+    </include>
+
+    <!-- Include the red cube -->
+    <include>
+      <uri>model://cube_red</uri>
+      <pose>-0.5 0.41 0.8 0 0 0</pose>  
+    </include>
+
+    <!-- Include the blue cube -->
+    <include>
+      <uri>model://cube_blue</uri>
+      <pose>-0.3 0.41 0.8 0 0 0</pose>  
+    </include>
+
+    <!-- Include the green cube -->
+    <include>
+      <uri>model://cube_green</uri>
+      <pose>-0.4 0.41 0.8 0 0 0</pose>  
+    </include>
+
+  </world>
+</sdf>

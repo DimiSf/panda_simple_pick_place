@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="work_table">
+    <static>true</static> <!-- Table and drop zone are static -->
+
+    <!-- Table Link -->
+    <link name="table">
+      <!-- Tabletop -->
+      <visual name="visual_tabletop">
+        <geometry>
+          <box>
+            <size>1.2 1.2 0.05</size> <!-- Table dimensions -->
+          </box>
+        </geometry>
+        <pose>0 0 0.4 0 0 0</pose> <!-- Table height -->
+        <material>
+          <script>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.8 0.8 0.8 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <collision name="collision_tabletop">
+        <geometry>
+          <box>
+            <size>1.2 1.2 0.05</size>
+          </box>
+        </geometry>
+        <pose>0 0 0.4 0 0 0</pose>
+      </collision>
+
+      <!-- Table Legs -->
+      <visual name="visual_leg_1">
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius> <!-- Leg radius -->
+            <length>0.4</length> <!-- Leg height -->
+          </cylinder>
+        </geometry>
+        <pose>-0.5 -0.5 0.2 0 0 0</pose> <!-- Back left corner -->
+        <material>
+          <script>
+            <name>Gazebo/BlackTransparent</name>
+          </script>
+        </material>
+      </visual>
+      <visual name="visual_leg_2">
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.4</length>
+          </cylinder>
+        </geometry>
+        <pose>0.5 -0.5 0.2 0 0 0</pose> <!-- Back right corner -->
+        <material>
+          <script>
+            <name>Gazebo/BlackTransparent</name>
+          </script>
+        </material>
+      </visual>
+      <visual name="visual_leg_3">
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.4</length>
+          </cylinder>
+        </geometry>
+        <pose>-0.5 0.5 0.2 0 0 0</pose> <!-- Front left corner -->
+        <material>
+          <script>
+            <name>Gazebo/BlackTransparent</name>
+          </script>
+        </material>
+      </visual>
+      <visual name="visual_leg_4">
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.4</length>
+          </cylinder>
+        </geometry>
+        <pose>0.5 0.5 0.2 0 0 0</pose> <!-- Front right corner -->
+        <material>
+          <script>
+            <name>Gazebo/BlackTransparent</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- Drop Zone -->
+      <visual name="visual_drop_zone">
+        <geometry>
+          <box>
+            <size>0.5 0.5 0.01</size> <!-- Drop zone dimensions -->
+          </box>
+        </geometry>
+        <pose>0.2 0.2 0.425 0 0 0</pose> <!-- Positioned at the right corner -->
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+          </script>
+          <ambient>1 1 1 1</ambient> <!-- White appearance -->
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
