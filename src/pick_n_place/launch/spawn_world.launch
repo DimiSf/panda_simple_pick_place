@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <launch>
 
   <!-- Start Gazebo with the custom world -->
@@ -14,5 +15,10 @@
   <group ns="gazebo">
     <param name="use_sim_time" value="true"/>
   </group>
+
+  <!-- Spawn Panda robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-file $(find franka_description)/robots/panda_test.urdf -urdf -model panda -x 0.0 -y -0.35 -z 0.48"/>
+
 
 </launch>
