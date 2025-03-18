@@ -3,15 +3,32 @@
   <name>pick_n_place</name>
   <version>0.0.1</version>
   <description>Pick and Place project for Panda robot</description>
-  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <maintainer email="your_email@example.com">Dimitra</maintainer>
   <license>BSD</license>
-
+  
+  <!-- Build tool dependency -->
   <buildtool_depend>catkin</buildtool_depend>
 
+  <!-- Basic ROS dependencies -->
   <depend>roscpp</depend>
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>gazebo_ros</depend>
   <depend>xacro</depend>
+
+  <!-- Gazebo dependencies-->
+  <depend>gazebo_plugins</depend>
+  <depend>gazebo_dev</depend>
+  
+  
+  <depend>tf</depend>
+  <depend>tf2_ros</depend>
+  <depend>urdf</depend>
+
+    <!-- Export Gazebo paths to find models -->
+  <export>
+    <gazebo_ros gazebo_plugin_path="${prefix}/lib" 
+                gazebo_model_path="${prefix}/.." />
+  </export>
 
 </package>

@@ -1,17 +1,43 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
-  <xacro:macro name="panda_arm" params="arm_id:='panda' description_pkg:='franka_description' connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
+  <link name="world"/>
+<!-- Define the base cube -->
+  <link name="base_panda">
+    <visual>
+      <geometry>
+        <box size="0.4 0.4 0.2"/> <!-- Cube dimensions -->
+      </geometry>
+      <material name="red">
+        <ambient>1 0 0 1</ambient>  <!-- Red color -->
+      </material>
 
-    <!-- Ensure only one root link is used -->
-    <xacro:unless value="${not connected_to}">
-      <joint name="virtual_joint" type="fixed">
-        <parent link="${connected_to}"/>
-        <child link="${arm_id}_link0"/>
-        <origin rpy="${rpy}" xyz="${xyz}"/>
-        <dynamics damping="1.0"/>
-      </joint>
-    </xacro:unless>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2 0.2 0.2"/> <!-- Ensure collision shape also has size -->
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="5.0"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
 
+  <!-- Attach base_panda to world -->
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_panda"/>
+    <origin xyz="0.1 1.0179 0.1" rpy="0 0 0"/> <!-- Base height at 0.1m -->
+  </joint>
+
+  <!-- Attach Panda arm to the base -->
+  <joint name="base_to_panda" type="fixed">
+    <parent link="base_panda"/>
+    <child link="panda_link0"/>
+    <origin xyz="0 0 0.1" rpy="0 0 -1.57"/>  <!-- Panda sits on top of base -->
+  </joint>
+
+  <xacro:macro name="panda_arm" params="arm_id:='panda' description_pkg:='franka_description' connected_to:='' ">    
     <xacro:macro name="arm_link" params="name visual_mesh:='' collision_mesh:='' mass:='0.0'">
       <link name="${name}">
         <xacro:unless value="${not visual_mesh}">
@@ -61,7 +87,7 @@
     <xacro:arm_link name="${arm_id}_link8"/>
 
     <!-- Define joints -->
-    <xacro:arm_joint name="${arm_id}_joint1" type="revolute" rpy="0 0 0" xyz="0 0 0.333" parent_link="${arm_id}_link0" child_link="${arm_id}_link1" limit_effort="87" limit_lower="-2.8973" limit_upper="2.8973" limit_velocity="2.1750"/>
+    <xacro:arm_joint name="${arm_id}_joint1" type="revolute" rpy="0 0 0"  xyz="0 0 0.333" parent_link="${arm_id}_link0" child_link="${arm_id}_link1" limit_effort="87" limit_lower="-2.8973" limit_upper="2.8973" limit_velocity="2.1750"/>
     <xacro:arm_joint name="${arm_id}_joint2" type="revolute" rpy="${-pi/2} 0 0" xyz="0 0 0" parent_link="${arm_id}_link1" child_link="${arm_id}_link2" limit_effort="87" limit_lower="-1.7628" limit_upper="1.7628" limit_velocity="2.1750"/>
     <xacro:arm_joint name="${arm_id}_joint3" type="revolute" rpy="${pi/2} 0 0" xyz="0 -0.316 0" parent_link="${arm_id}_link2" child_link="${arm_id}_link3" limit_effort="87" limit_lower="-2.8973" limit_upper="2.8973" limit_velocity="2.1750"/>
     <xacro:arm_joint name="${arm_id}_joint4" type="revolute" rpy="${pi/2} 0 0" xyz="0.0825 0 0" parent_link="${arm_id}_link3" child_link="${arm_id}_link4" limit_effort="87" limit_lower="-3.0718" limit_upper="-0.0698" limit_velocity="2.1750"/>
@@ -69,6 +95,13 @@
     <xacro:arm_joint name="${arm_id}_joint6" type="revolute" rpy="${pi/2} 0 0" xyz="0 0 0" parent_link="${arm_id}_link5" child_link="${arm_id}_link6" limit_effort="12" limit_lower="-0.0175" limit_upper="3.7525" limit_velocity="2.6100"/>
     <xacro:arm_joint name="${arm_id}_joint7" type="revolute" rpy="${pi/2} 0 0" xyz="0.088 0 0" parent_link="${arm_id}_link6" child_link="${arm_id}_link7" limit_effort="12" limit_lower="-2.8973" limit_upper="2.8973" limit_velocity="2.6100"/>
     <xacro:arm_joint name="${arm_id}_joint8" type="fixed" parent_link="${arm_id}_link7" child_link="${arm_id}_link8" rpy="0 0 0" xyz="0 0 0.107"/>
+
+  <!-- Add Gazebo plugin for control -->
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      </plugin>
+    </gazebo>
+
 
   </xacro:macro>
 </robot>

@@ -10,7 +10,7 @@
     <include>
       <uri>model://sun</uri>
     </include>
-
+    
     <!-- Include the table -->
     <include>
       <uri>model://work_table</uri>

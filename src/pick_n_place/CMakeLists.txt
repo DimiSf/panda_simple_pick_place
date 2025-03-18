@@ -13,3 +13,13 @@ catkin_package()
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+
+# Ensure Gazebo finds the models and worlds
+install(DIRECTORY models worlds
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+# Install launch files 
+install(DIRECTORY launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
